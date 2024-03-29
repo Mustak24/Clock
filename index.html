@@ -1,0 +1,153 @@
+<html>
+<head>
+    <title>Clock</title>
+    <style>
+        html,body{
+            margin: 0; width: 100%;
+            height: 100%; display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(65, 166, 255);
+            overflow: hidden;
+        }
+
+        div.main{
+            aspect-ratio: 1; width: 500px;
+            border-radius: 50%;
+            display: flex; align-items: center;
+            justify-content: center;
+
+            div.circul{
+            aspect-ratio: .95; width: 500px;
+            border-radius: 50%;
+            background-color: rgba(0, 255, 255, 0.305);
+            animation: anime 5s infinite linear;
+            }
+            div.circul::after{
+                content: "";  
+                position: absolute;  
+                aspect-ratio: .95; width: 500; 
+                background-color: rgba(0, 217, 255, 0.495);  
+                border-radius: 50%; 
+                animation: anime 5s infinite linear;
+            }
+
+            span{
+                position: absolute;
+                aspect-ratio: 1; width: 350px;
+                border-radius: 50%;
+
+                p{
+                    aspect-ratio: 1;
+                    width: fit-content; 
+                    font-size: 40px;
+                    margin: 0;
+                }
+            }
+
+            div.center{
+                border: 5px solid rgb(0, 0, 0);
+                border-radius: 50%; display: flex;
+                align-items: center; justify-content: left;
+                position: absolute; opacity: .6;
+
+                div{
+                    position: absolute;
+                    border: 3px solid black;
+                    width: 150;
+                    border-top-right-radius: 50%;
+                    border-bottom-right-radius: 50%;
+                }
+                .min{width: 100;}
+                .hr{width: 50;}
+            }
+        }
+
+        @keyframes anime{
+            from{rotate: 0deg;}
+            to{rotate: 360deg;}
+        }
+
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="circul"></div>
+        <span style="rotate: 45deg;">
+            <p style="transform: rotateZ(-45deg);">12</p>
+        </span>
+        <span style="rotate: 75deg;">
+            <p style="transform: rotateZ(-75deg);">1</p>
+        </span>
+        <span style="rotate: 105deg;">
+            <p style="transform: rotateZ(-105deg);">2</p>
+        </span>
+        <span style="rotate: 135deg;">
+            <p style="transform: rotateZ(-135deg);">3</p>
+        </span>
+        <span style="rotate: 165deg;">
+            <p style="transform: rotateZ(-165deg);">4</p>
+        </span>
+        <span style="rotate: 195deg;">
+            <p style="transform: rotateZ(-195deg);">5</p>
+        </span>
+        <span style="rotate: 225deg;">
+            <p style="transform: rotateZ(-225deg);">6</p>
+        </span>
+        <span style="rotate: 255deg;">
+            <p style="transform: rotateZ(-255deg);">7</p>
+        </span>
+        <span style="rotate: 285deg;">
+            <p style="transform: rotateZ(-285deg);">8</p>
+        </span>
+        <span style="rotate: 315deg;">
+            <p style="transform: rotateZ(-315deg);">9</p>
+        </span>
+        <span style="rotate: 345deg;">
+            <p style="transform: rotateZ(-345deg);">10</p>
+        </span>
+        <span style="rotate: 375deg;">
+            <p style="transform: rotateZ(-375deg);">11</p>
+        </span>
+
+        <div id="sec" class="center">
+            <div class="sec"></div>
+        </div>
+        <div id="min" class="center">
+            <div class="min"></div>
+        </div>
+        <div id="hr" class="center">
+            <div class="hr"></div>
+        </div>
+    </div>
+</body>
+<script>
+
+//60, 3600, 43200
+//
+//6, 0.1, 0.008333
+//0.6, 0.01, 0.000166
+    const time = new Date();
+
+    var sec = document.getElementById("sec");
+    var min = document.getElementById("min");
+    var hr = document.getElementById("hr");
+
+    function round(){
+        let ms = new Date().getMilliseconds()
+        let s = new Date().getSeconds();
+        let m = new Date().getMinutes();
+        let h = new Date().getHours();
+        sec.style.rotate = `${6*s + 0.006*ms - 90}deg`
+        min.style.rotate = `${6*m + 0.1*s - 90}deg`;
+        console.log(min.style.rotate)
+
+        hr.style.rotate = `${30*(h-12)-90 + 0.1*m}deg`
+    }
+
+    setInterval(round,1);
+
+
+ 
+</script>
+</html>
